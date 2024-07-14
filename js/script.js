@@ -25,7 +25,8 @@ myHttp.addEventListener("load", function(){
 // ///////////////////////////////// main functions & filters /////////////////////////////////////////////////////////////////
 
 var searchByName = function(){
-    var mealName = "bu";
+    var mealName = document.getElementById("byNameInput").value;
+    console.log(mealName);
     var mealNameHttp = new XMLHttpRequest();
 
     mealNameHttp.open("GET", `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`);
@@ -33,6 +34,7 @@ var searchByName = function(){
 
     mealNameHttp.addEventListener("load", function(){
     console.log(JSON.parse(mealNameHttp.response).meals);
+    
 })
 };
 var searchByFirstLetter = function(){
@@ -259,6 +261,21 @@ var mealDetails = function(x){
             </div>`;
     }
 )};
+var searchPage = function(){
+    var bigContainer = document.getElementById("bigContainer")
+    bigContainer.innerHTML = `<div class="row my-5">
+            <div class="col-md-6">
+                <input type="text" id="byNameInput" onkeyup="searchByName()" class="w-100 inputDeco p-1 rounded-2 text-white" placeholder="Search by Name">
+            </div>
+            <div class="col-md-6">
+                <input type="text" id="byLetterInput" class="w-100 inputDeco p-1 rounded-2 text-white" maxlength="1" placeholder="Search by First letter">
+            </div>
+        </div>
+        <div class="row g-4 py-5" id="rowMeals">
+        </div>`
+
+
+}
 // ///////////////////////////////// click events ///////////////////////////////////////////////////////////////////////////
 
 var ingredientMe = document.getElementById("ingredientMe");
@@ -270,4 +287,17 @@ areaMe.addEventListener("click", function(){allArea()});
 var categoryMe = document.getElementById("categoryMe");
 categoryMe.addEventListener("click", function(){allCategory()});
 
+var searchMe = document.getElementById("searchMe");
+searchMe.addEventListener("click", function(){searchPage()});
 
+
+{/* <div class="row ">
+            <div class="col-md-6">
+                <input type="text" id="byNameInput" class="w-100 inputDeco p-1 rounded-2 text-white" placeholder="Search by Name">
+            </div>
+            <div class="col-md-6">
+                <input type="text" id="byLetterInput" class="w-100 inputDeco p-1 rounded-2 text-white" maxlength="1" placeholder="Search by First letter">
+            </div>
+        </div>
+        <div class="row g-4 py-5" id="rowMeals">
+        </div> */}
