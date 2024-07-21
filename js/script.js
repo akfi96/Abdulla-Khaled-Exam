@@ -27,14 +27,24 @@ myHttp.addEventListener("load", function(){
 var searchByName = function(){
     var mealName = document.getElementById("byNameInput").value;
     console.log(mealName);
+    var mealNameArr = [];
     var mealNameHttp = new XMLHttpRequest();
 
     mealNameHttp.open("GET", `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`);
     mealNameHttp.send();
 
     mealNameHttp.addEventListener("load", function(){
-    console.log(JSON.parse(mealNameHttp.response).meals);
-    
+    mealNameArr = JSON.parse(mealNameHttp.response).meals;
+    for(i=0 ; i < mealNameArr.length; i++){
+        rowMeals.innerHTML += `<div class="col-md-3">
+                    <div class="rounded-2 overflow-hidden meal position-relative" onclick='mealDetails("${mealNameArr[i].strMeal}")'>
+                        <img class="w-100" src="${mealNameArr[i].strMealThumb}" alt="">
+                        <div class="meal-name d-flex align-items-center">
+                            <p class="fs-2 fw-semibold ps-3 mealName">${mealNameArr[i].strMeal}</p>
+                        </div>
+                    </div>
+                </div>`
+    }
 })
 };
 var searchByFirstLetter = function(){
@@ -289,15 +299,3 @@ categoryMe.addEventListener("click", function(){allCategory()});
 
 var searchMe = document.getElementById("searchMe");
 searchMe.addEventListener("click", function(){searchPage()});
-
-
-{/* <div class="row ">
-            <div class="col-md-6">
-                <input type="text" id="byNameInput" class="w-100 inputDeco p-1 rounded-2 text-white" placeholder="Search by Name">
-            </div>
-            <div class="col-md-6">
-                <input type="text" id="byLetterInput" class="w-100 inputDeco p-1 rounded-2 text-white" maxlength="1" placeholder="Search by First letter">
-            </div>
-        </div>
-        <div class="row g-4 py-5" id="rowMeals">
-        </div> */}
